@@ -27,11 +27,13 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * counter1 uses no global variables. Counter2 does. 
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ *  I'm tempted to say both use a closure, since they both reference variables outside their local scope.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * I think in general counter1 would be preferred since global variables tend to be frowned upon in development. I can't think of a scenario where you'd want counter2.
 */
 
 // counter1 code
@@ -58,9 +60,9 @@ Write a function called `inning` that returns a random number of points that a t
 
 function inning(/*Code Here*/){
 
-    /*Code Here*/
-
+return Math.floor(Math.random() * 3);
 }
+
 
 /* Task 3: finalScore()
 
@@ -76,11 +78,31 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(callbackFunction, inning){
 
-  /*Code Here*/
+  let index = 0;
+  let home = 0;
+  let away = 0;
 
+  let turn = "home";
+
+  while (index < inning) {
+
+    if (turn === "home") {
+      home = home + callbackFunction();
+      turn = "away";
+    } else if (turn === "away") {
+      away = away + callbackFunction();
+      turn = "home";
+    }
+    index = index + 1;
+
+  }
+
+  return {"Home": home, "Away": away}
 }
+
+//finalScore(inning, 9);
 
 /* Task 4: 
 
@@ -103,8 +125,32 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScoreFunction, inningFunction, numberOfInnings) {
+
+  let index = 0;
+  let abbreviation = ""
+
+  while (index < numberOfInnings) {
+    if (index === 0) {
+      abbreviation = "st";
+    } else if (index === 1) {
+      abbreviation = "nd";
+      }
+      else if (index === 2) {
+      abbreviation = "rd";
+      } else {
+      abbreviation = "th";
+      }
+
+    var score = getInningScoreFunction(inningFunction, numberOfInnings);
+    console.log(`${index + 1}${abbreviation} inning: ${score.Home}-${score.Away}`);
+
+    index = index + 1;
+  }
+
+  return `Final Score: ${score.Home}-${score.Away}`
 }
+
+scoreboard(finalScore, inning, 9);
 
 

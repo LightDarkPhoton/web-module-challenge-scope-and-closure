@@ -42,6 +42,8 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+Whenever a function looks outside its own scope for a variable.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -63,8 +65,13 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+Line 54, with console.log(\${name}) uses a closure, since its name lies outside the scope of the function(). 
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+The number that is rolled will change, owing to the use of the .random() function. However, the all other events will happen precisely as they were defined.
+
 c. What is the lexical scope of `newRoll`? 
+It operates within the scope of the anonymous function().
 
 ### Task 2c - Exit Ticket
 
